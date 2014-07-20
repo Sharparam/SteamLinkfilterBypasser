@@ -1,6 +1,8 @@
-const {Cc, Ci, Cr} = require("chrome");
+const {Cc, Ci, Cr, Cu} = require("chrome");
 
 var utils = require("sdk/window/utils");
+
+Cu.import("resource://gre/modules/AddonManager.jsm");
 
 var linkfilterRegex = /^https?:\/\/(?:www\.)?steamcommunity\.com\/linkfilter\/\?url=(.*)$/i
 
@@ -44,3 +46,12 @@ var slfbObserver = {
 }
 
 slfbObserver.register();
+
+var listener = {
+    onDisabled: function(addon) {
+        if (addon.id == "slfb@sharparam.com")
+            slfbObserver.unregister();
+    }
+}
+
+AddonManager.addAddonListener(listener);
