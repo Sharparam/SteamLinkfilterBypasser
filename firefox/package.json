@@ -1,9 +1,9 @@
 {
-  "name": "steam_linkfilter_bypass",
-  "title": "Steam linkfilter bypass",
+  "name": "steam_linkfilter_bypasser",
+  "title": "Steam linkfilter bypasser",
   "id": "slfb@sharparam.com",
   "description": "Bypasses the linkfilter on steamcommunity.com",
   "author": "Sharparam",
   "license": "MIT",
-  "version": "1.0.2"
+  "version": "1.0.3"
 }
