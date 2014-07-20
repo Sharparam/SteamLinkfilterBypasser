@@ -1,5 +1,5 @@
-Steam linkfilter bypass
-=======================
+Steam linkfilter bypasser
+=========================
 
 A browser addon to bypass the linkfilter on steamcommunity.com.
 
