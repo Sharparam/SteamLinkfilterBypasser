@@ -1,6 +1,6 @@
 const {Cc, Ci, Cr, Cu} = require("chrome");
 
-var utils = require("sdk/window/utils");
+const utils = require("sdk/window/utils");
 
 Cu.import("resource://gre/modules/AddonManager.jsm");
 
