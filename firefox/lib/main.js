@@ -2,6 +2,17 @@ const {Cc, Ci, Cr, Cu} = require("chrome");
 
 const utils = require("sdk/window/utils");
 
+// page-mod is used to detect page load on browser launch
+// for some reason, the observer doesn't detect it
+// TODO: cleaner solution for this
+const pageMod = require("sdk/page-mod");
+const data = require("sdk/self").data;
+
+pageMod.PageMod({
+    include: "https://steamcommunity.com/linkfilter/*",
+    contentScriptFile: data.url("loadscript.js")
+});
+
 Cu.import("resource://gre/modules/AddonManager.jsm");
 
 var linkfilterRegex = /^https?:\/\/(?:www\.)?steamcommunity\.com\/linkfilter\/\?url=(.*)$/i
@@ -14,9 +25,11 @@ function getURL(url) {
     return linkfilterRegex.exec(url)[1];
 }
 
+var slfbTopic = "http-on-modify-request";
+
 var slfbObserver = {
     observe: function(subject, topic, data) {
-        if (topic == "http-on-modify-request") {
+        if (topic == slfbTopic) {
             var httpChannel = subject.QueryInterface(Ci.nsIHttpChannel);     
             var requestURL = subject.URI.spec;
 
@@ -37,11 +50,11 @@ var slfbObserver = {
     },
 
     register: function() {
-        this.observerService.addObserver(this, "http-on-modify-request", false);
+        this.observerService.addObserver(this, slfbTopic, false);
     },
 
     unregister: function() {
-        this.observerService.removeObserver(this, "http-on-modify-request");
+        this.observerService.removeObserver(this, slfbTopic);
     }
 }
 

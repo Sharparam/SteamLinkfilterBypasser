@@ -1,1 +1,3 @@
 *.xpi
+*.log
+firefox/test.bat
